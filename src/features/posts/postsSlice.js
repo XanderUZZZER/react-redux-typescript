@@ -11,6 +11,9 @@ const postsSlice = createSlice({
   reducers: {
     postAdded(state, action) {
       state.unshift(action.payload)
+    },
+    postUpdated(state, action) {
+      state.unshift(action.payload)
     }
   }
 })
