@@ -10,8 +10,9 @@ import { selectAllPosts, fetchPosts } from './postsSlice'
 
 export const PostsList = () => {
   const dispatch = useDispatch()
-  const postStatus = useSelector(state => state.status)
   const posts = useSelector(selectAllPosts)
+  const postStatus = useSelector(state => state.posts.status)
+  const error = useSelector(state => state.posts.error)
 
   useEffect(() => {
     if (postStatus === 'idle') {
@@ -19,31 +20,39 @@ export const PostsList = () => {
     }
   }, [postStatus, dispatch])
 
-  const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
+  let content
 
-  const renderedPosts = orderedPosts.map(post => (
-    <div key={post.id} className="card text-white bg-secondary mb-3">
-      <h5 className="card-header">{post.title}</h5>
-      <div className="card-body">
-        <p className="card-text lead">{post.content.substring(0, 100)}</p>
-        <PostAuthor userId={post.user} />
-        <TimeAgo timestamp={post.date} />
-      </div>
-      <ReactionButtons post={post} />
-      <div className="card-footer">
-        <Link
-          to={`/posts/${post.id}`}
-          className='btn btn-primary'>
-          View Full Post
+  if (postStatus === 'loading') {
+    content = <div className='loader'>Loading...</div>
+  } else if (postStatus === 'succeeded') {
+    const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
+
+    content = orderedPosts.map(post => (
+      <div key={post.id} className="card text-white bg-secondary mb-3">
+        <h5 className="card-header">{post.title}</h5>
+        <div className="card-body">
+          <p className="card-text lead">{post.content.substring(0, 100)}</p>
+          <PostAuthor userId={post.user} />
+          <TimeAgo timestamp={post.date} />
+        </div>
+        <ReactionButtons post={post} />
+        <div className="card-footer">
+          <Link
+            to={`/posts/${post.id}`}
+            className='btn btn-primary'>
+            View Full Post
         </Link>
+        </div>
       </div>
-    </div>
-  ))
+    ))
+  } else if (postStatus === 'error') {
+    content = <div>{error}</div>
+  }
 
   return (
     <section>
       <h2 className='display-4 mt-3'>Posts</h2>
-      {renderedPosts}
+      {content}
     </section>
   )
 }
