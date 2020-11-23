@@ -37,10 +37,19 @@ const initialState = {
   error: null
 }
 
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-  const response = await client.get('/fakeApi/posts')
-  return response.posts
-})
+export const fetchPosts = createAsyncThunk(
+  'posts/fetchPosts',
+  async () => {
+    const response = await client.get('/fakeApi/posts')
+    return response.posts
+  })
+
+export const addNewPost = createAsyncThunk(
+  'posts/addNewPost',
+  async initialPost => {
+    const response = await client.post('/fakeApi/posts', { post: initialPost })
+    return response.post
+  })
 
 const postsSlice = createSlice({
   name: 'posts',
@@ -99,6 +108,9 @@ const postsSlice = createSlice({
       state.status = 'failed'
       state.error = action.error.message
     },
+    [addNewPost.fulfilled]: (state, action) => {
+      state.posts.push(action.payload)
+    }
   }
 })
 
