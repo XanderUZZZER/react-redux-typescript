@@ -19,7 +19,7 @@ export const ReactionButtons = ({ post }) => {
       <button
         key={name}
         type="button"
-        className="muted-button reaction-button"
+        className="btn btn-primary mb-2 rounded-0"
         onClick={() => dispatch(
           reactionAdded({
             postId: post.id,
@@ -32,5 +32,5 @@ export const ReactionButtons = ({ post }) => {
     )
   })
 
-  return <div>{reactionButtons}</div>
+  return <div className='d-flex justify-content-between btn-group'>{reactionButtons}</div>
 }
