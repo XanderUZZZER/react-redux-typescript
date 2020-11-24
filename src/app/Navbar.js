@@ -1,15 +1,28 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Link } from 'react-router-dom'
 
-import { fetchNotifications } from '../features/notifications/notificationSlice'
+import {
+  fetchNotifications,
+  selectAllNotifications
+} from '../features/notifications/notificationSlice'
 
 export const Navbar = () => {
   const dispatch = useDispatch()
+  const notifications = useSelector(selectAllNotifications)
+  const numUnreadNotifications = notifications.filter(n => !n.read).length
 
   const fetchNewNotifications = () => {
     dispatch(fetchNotifications())
+  }
+
+  let unreadNotificationsBadge
+
+  if (numUnreadNotifications > 0) {
+    unreadNotificationsBadge = (
+      <span className="badge badge-info">{numUnreadNotifications}</span>
+    )
   }
 
   return (
@@ -31,9 +44,11 @@ export const Navbar = () => {
           <div className="navbar-nav ml-auto">
             <Link className="nav-link" to="/" data-toggle="collapse" data-target=".navbar-collapse.show">Home <span className="sr-only">(current)</span></Link>
             <Link className="nav-link" to="/users" data-toggle="collapse" data-target=".navbar-collapse.show">Users</Link>
-            <Link className="nav-link" to="/notifications" data-toggle="collapse" data-target=".navbar-collapse.show">Notifications</Link>
+            <Link className="nav-link" to="/notifications" data-toggle="collapse" data-target=".navbar-collapse.show">
+              Notifications {unreadNotificationsBadge}
+            </Link>
           </div>
-          <button className="btn btn-outline-success" onClick={fetchNewNotifications}>Refresh Notifications</button>
+          <button className="btn btn-outline-success btn-sm" onClick={fetchNewNotifications}>Refresh Notifications</button>
         </div>
       </div>
     </nav>
