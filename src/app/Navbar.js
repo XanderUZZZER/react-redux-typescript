@@ -1,8 +1,17 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 
 import { Link } from 'react-router-dom'
 
+import { fetchNotifications } from '../features/notifications/notificationSlice'
+
 export const Navbar = () => {
+  const dispatch = useDispatch()
+
+  const fetchNewNotifications = () => {
+    dispatch(fetchNotifications())
+  }
+
   return (
     <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-3">
       <div className="container">
@@ -21,9 +30,10 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav ml-auto">
             <Link className="nav-link" to="/" data-toggle="collapse" data-target=".navbar-collapse.show">Home <span className="sr-only">(current)</span></Link>
-            <Link className="nav-link" to="/posts" data-toggle="collapse" data-target=".navbar-collapse.show">Posts</Link>
             <Link className="nav-link" to="/users" data-toggle="collapse" data-target=".navbar-collapse.show">Users</Link>
+            <Link className="nav-link" to="/notifications" data-toggle="collapse" data-target=".navbar-collapse.show">Notifications</Link>
           </div>
+          <button className="btn btn-outline-success" onClick={fetchNewNotifications}>Refresh Notifications</button>
         </div>
       </div>
     </nav>

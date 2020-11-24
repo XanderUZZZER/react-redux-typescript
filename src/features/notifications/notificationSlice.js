@@ -7,15 +7,15 @@ export const fetchNotifications = createAsyncThunk(
   async (_, { getState }) => {
     const allNotifications = selectAllNotifications(getState())
     const [latestNotification] = allNotifications
-    const latetsTimeStamp = latestNotification ? latestNotification.date : ''
-    const response = await client.get(`/fakeApi/notifications?since=${latetsTimeStamp}`)
+    const latestTimeStamp = latestNotification ? latestNotification.date : ''
+    const response = await client.get(`/fakeApi/notifications?since=${latestTimeStamp}`)
     return response.notifications
   }
 )
 
 const notificationsSlice = createSlice({
   name: 'notifications',
-  initalState: [],
+  initialState: [],
   reducers: {},
   extraReducers: {
     [fetchNotifications.fulfilled]: (state, action) => {

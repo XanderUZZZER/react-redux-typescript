@@ -65,7 +65,7 @@ const notificationTemplates = [
 new Server({
   routes() {
     this.namespace = 'fakeApi'
-    this.timing = 2000
+    this.timing = 1000
 
     this.resource('users')
     this.resource('posts')
@@ -209,6 +209,6 @@ new Server({
     comment: IdSerializer,
   },
   seeds(server) {
-    server.createList('user', 3)
+    server.createList('user', 4)
   },
 })
