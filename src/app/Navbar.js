@@ -21,7 +21,8 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav ml-auto">
             <Link className="nav-link" to="/" data-toggle="collapse" data-target=".navbar-collapse.show">Home <span className="sr-only">(current)</span></Link>
-            <Link className="nav-link" to="#" data-toggle="collapse" data-target=".navbar-collapse.show">Post</Link>
+            <Link className="nav-link" to="/posts" data-toggle="collapse" data-target=".navbar-collapse.show">Posts</Link>
+            <Link className="nav-link" to="/users" data-toggle="collapse" data-target=".navbar-collapse.show">Users</Link>
           </div>
         </div>
       </div>

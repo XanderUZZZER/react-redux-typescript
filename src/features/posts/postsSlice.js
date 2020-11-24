@@ -1,38 +1,41 @@
 import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit'
-import { sub } from 'date-fns'
+// import { sub } from 'date-fns'
 import { client } from '../../api/client'
 
 const initialState = {
-  posts: [
-    {
-      id: nanoid(),
-      date: sub(new Date(), { minutes: 10 }).toISOString(),
-      title: 'First post',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum, sed.',
-      reactions: {
-        thumbsUp: 0,
-        hooray: 0,
-        heart: 0,
-        rocket: 0,
-        eyes: 0
-      },
-      user: '2'
-    },
-    {
-      id: nanoid(),
-      date: sub(new Date(), { minutes: 5 }).toISOString(),
-      title: 'Second post',
-      content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium ut aliquam quas aliquid sequi. Excepturi quas voluptatum enim quibusdam illum.',
-      reactions: {
-        thumbsUp: 0,
-        hooray: 0,
-        heart: 0,
-        rocket: 0,
-        eyes: 0
-      },
-      user: '0'
-    }
-  ],
+  // posts: [
+  //   {
+  //     id: nanoid(),
+  //     date: sub(new Date(), { minutes: 10 }).toISOString(),
+  //     title: 'First post',
+  //     content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum, sed.',
+  //     reactions: {
+  //       thumbsUp: 0,
+  //       hooray: 0,
+  //       heart: 0,
+  //       rocket: 0,
+  //       eyes: 0
+  //     },
+  //     user: '2'
+  //   },
+  //   {
+  //     id: nanoid(),
+  //     date: sub(new Date(), { minutes: 5 }).toISOString(),
+  //     title: 'Second post',
+  //     content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium ut aliquam quas aliquid sequi. Excepturi quas voluptatum enim quibusdam illum.',
+  //     reactions: {
+  //       thumbsUp: 0,
+  //       hooray: 0,
+  //       heart: 0,
+  //       rocket: 0,
+  //       eyes: 0
+  //     },
+  //     user: '0'
+  //   }
+  // ],
+  // status: 'idle',
+  // error: null
+  posts: [],
   status: 'idle',
   error: null
 }
