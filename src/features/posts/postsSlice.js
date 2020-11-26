@@ -29,29 +29,6 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    postAdded: {
-      reducer(state, action) {
-        state.posts.push(action.payload)
-      },
-      prepare(title, content, userId) {
-        return {
-          payload: {
-            id: nanoid(),
-            date: new Date().toISOString(),
-            title,
-            content,
-            reactions: {
-              thumbsUp: 0,
-              hooray: 0,
-              heart: 0,
-              rocket: 0,
-              eyes: 0
-            },
-            user: userId
-          }
-        }
-      }
-    },
     postUpdated(state, action) {
       const { id, title, content } = action.payload
       const existingPost = state.entities[id]
@@ -76,7 +53,7 @@ const postsSlice = createSlice({
     },
     [fetchPosts.fulfilled]: (state, action) => {
       state.status = 'succeeded'
-      postsAdapter.upsertOne(state, action.payload)
+      postsAdapter.upsertMany(state, action.payload)
     },
     [fetchPosts.rejected]: (state, action) => {
       state.status = 'failed'
